@@ -27,6 +27,7 @@ public class IntentClassTable extends OneIntOneStringTable {
 
   @Override
   public int insert(int intentId, String clazz) throws SQLException {
+    System.out.println("insert intent classes");
     clazz = clazz.replace("/", ".");
     return super.insert(intentId, clazz);
   }

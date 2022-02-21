@@ -667,6 +667,11 @@ public class ManifestPullParser {
       return true;
     }
 
+    if ( name.startsWith("androidx."))
+    {
+      skipToEndTag = endTag;
+    }
+
     if (permission == null) {
       permission = applicationPermission;
     }
