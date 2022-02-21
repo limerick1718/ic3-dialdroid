@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -149,6 +151,7 @@ public class SetupApplication {
       }
 
       if (entrypoints.addAll(jimpleClass.getDynamicManifestComponents())) {
+        System.out.println("changed!!!!!!!!!!!!!!!!!!!!!");
         hasChanged = true;
       }
     }
@@ -358,6 +361,7 @@ public class SetupApplication {
    * scene.
    */
   private void createMainMethod() {
+    System.out.println("createMainMethod");
     // Always update the entry point creator to reflect the newest set
     // of callback methods
     SootMethod entryPoint = createEntryPointCreator().createDummyMain();
@@ -454,8 +458,34 @@ public class SetupApplication {
     Main.v().autoSetOptions();
 
     // Set the Soot configuration options
+
+    System.out.println("test");
+    
     if (sootConfig != null) {
-      sootConfig.setSootOptions(Options.v());
+      //sootConfig.setSootOptions(Options.v());
+      List<String> excludeList = new LinkedList<String>();
+      excludeList.add("java.*");
+      excludeList.add("sun.*");
+  
+      // exclude classes of android.* will cause layout class cannot be
+      // loaded for layout file based callback analysis.
+  
+      // 2020-07-26 (SA): added back the exclusion, because removing it breaks
+      // calls to Android SDK stubs. We need a proper test case for the layout
+      // file issue and then see how to deal with it.
+      excludeList.add("android.*");
+  
+      excludeList.add("org.apache.*");
+      excludeList.add("org.eclipse.*");
+      excludeList.add("soot.*");
+      excludeList.add("javax.*");
+      excludeList.add("androidx.*");
+      Options.v().set_exclude(excludeList);
+      Iterator<String> iter = Options.v().exclude().iterator();
+      while(iter.hasNext())
+        System.out.println(iter.next());
+
+      
     }
 
     // Configure the callgraph algorithm
@@ -493,6 +523,10 @@ public class SetupApplication {
   public AndroidEntryPointCreator createEntryPointCreator() {
     AndroidEntryPointCreator entryPointCreator =
         new AndroidEntryPointCreator(new ArrayList<String>(this.entrypoints));
+    System.out.println("entryproints");
+    Iterator<String> it = this.entrypoints.iterator();
+    while(it.hasNext())
+      System.out.println(it.next());
     Map<String, List<String>> callbackMethodSigs = new HashMap<String, List<String>>();
     for (String className : this.callbackMethods.keySet()) {
       List<String> methodSigs = new ArrayList<String>();
@@ -502,6 +536,8 @@ public class SetupApplication {
       }
     }
     entryPointCreator.setCallbackFunctions(callbackMethodSigs);
+
+    
     return entryPointCreator;
   }
 }
