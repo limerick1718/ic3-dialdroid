@@ -27,7 +27,6 @@ public class ClassTable extends OneIntOneStringTable {
 
   @Override
   public int insert(int appId, String clazz) throws SQLException {
-    System.out.println("classtable isnert");
     return super.insert(appId, clazz);
   }
 
