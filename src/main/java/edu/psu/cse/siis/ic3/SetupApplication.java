@@ -151,9 +151,8 @@ public class SetupApplication {
       }
 
       if (entrypoints.addAll(jimpleClass.getDynamicManifestComponents())) {
-        System.out.println("changed!!!!!!!!!!!!!!!!!!!!!");
-        hasChanged = true;
-      }
+          hasChanged = true;
+        }
     }
 
     // Collect the XML-based callback methods
@@ -459,8 +458,6 @@ public class SetupApplication {
 
     // Set the Soot configuration options
 
-    System.out.println("test");
-    
     if (sootConfig != null) {
       //sootConfig.setSootOptions(Options.v());
       List<String> excludeList = new LinkedList<String>();
@@ -480,12 +477,7 @@ public class SetupApplication {
       excludeList.add("soot.*");
       excludeList.add("javax.*");
       excludeList.add("androidx.*");
-      Options.v().set_exclude(excludeList);
-      Iterator<String> iter = Options.v().exclude().iterator();
-      while(iter.hasNext())
-        System.out.println(iter.next());
-
-      
+      Options.v().set_exclude(excludeList);      
     }
 
     // Configure the callgraph algorithm

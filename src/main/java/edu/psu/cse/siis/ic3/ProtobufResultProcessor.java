@@ -157,8 +157,8 @@ public class ProtobufResultProcessor {
 
     for (Map.Entry<Unit, Map<Integer, Object>> entry : result.getResults().entrySet()) {
       Unit unit = entry.getKey();
-
       Argument[] arguments = Model.v().getArgumentsForQuery((Stmt) unit);
+      
 
       if (arguments != null) {
         SootMethod method = AnalysisParameters.v().getIcfg().getMethodOf(unit);

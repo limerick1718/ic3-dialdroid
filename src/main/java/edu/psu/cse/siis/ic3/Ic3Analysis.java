@@ -115,7 +115,6 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
   @Override
   protected void initializeAnalysis(Ic3CommandLineArguments commandLineArguments)
       throws FatalAnalysisException {
-    System.out.println("initializeAnalysis");
     long startTime = System.currentTimeMillis() / 1000;
     outputDir = commandLineArguments.getOutput();
 
@@ -131,14 +130,12 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
     } else if (commandLineArguments.getDb() != null) {
       SQLConnection.init(commandLineArguments.getDbName(), commandLineArguments.getDb(),
           commandLineArguments.getSsh(), commandLineArguments.getDbLocalPort());
-      System.out.println("writeToDB");
       componentToIdMap = detailedManifest.writeToDb(false);
     }
 
     apkPath=commandLineArguments.getInput();
     
     Timers.v().mainGeneration.start();
-    System.out.println("setupapplication");
     setupApplication = new SetupApplication(commandLineArguments.getManifest(),
         apkPath, commandLineArguments.getAndroidJar());
 

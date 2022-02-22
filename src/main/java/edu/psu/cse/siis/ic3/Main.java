@@ -20,11 +20,13 @@ public class Main {
 			return;
 		}
 		commandLineArguments.processCommandLineArguments();
+		Ic3Analysis analysis = new Ic3Analysis(commandLineArguments);
+		analysis.performAnalysis(commandLineArguments);
 
-		SQLConnection.init(commandLineArguments.getDbName(), "./cc.properties", null, 3306);
+		//SQLConnection.init(commandLineArguments.getDbName(), "./cc.properties", null, 3306);
 
-		try {
-			String shasum = SHA256Calculator.getSHA256(new File(commandLineArguments.getInput()));
+		/*try {
+			//String shasum = SHA256Calculator.getSHA256(new File(commandLineArguments.getInput()));
 
 			if (SQLConnection.checkIfAppAnalyzed(shasum)) {
 				return;
@@ -36,7 +38,7 @@ public class Main {
 		} catch (SQLException | NoSuchAlgorithmException | IOException e) {
 			
 			System.out.println("Error computing SHA of apk file!");
-		}
+		}*/
 
 	}
 
