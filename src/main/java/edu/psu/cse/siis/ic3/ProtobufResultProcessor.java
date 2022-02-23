@@ -94,7 +94,7 @@ public class ProtobufResultProcessor {
       Map<String, Ic3Data.Application.Component.Builder> componentNameToBuilderMap,
       int analysisClassesCount, Writer writer) throws IOException {
     for (Result result : Results.getResults()) {
-      ((Ic3Result) result).dump();
+      //((Ic3Result) result).dump();
       analyzeResult(result);
       writeResultToProtobuf(result, ic3Builder, componentNameToBuilderMap);
     }
@@ -114,8 +114,6 @@ public class ProtobufResultProcessor {
       TextFormat.print(ic3Builder, fileWriter);
       fileWriter.close();
     }
-
-    Timers.v().totalTimer.end();
 
     String statistics = appName + " " + analysisClassesCount + " "
         + PropagationTimers.v().reachableMethods + " " + preciseNonLinking[0] + " "

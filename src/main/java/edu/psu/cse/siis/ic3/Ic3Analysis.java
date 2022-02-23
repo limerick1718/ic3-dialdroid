@@ -127,7 +127,8 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
         ic3Builder.setSample(commandLineArguments.getSample());
       }
       componentNameToBuilderMap = detailedManifest.populateProtobuf(ic3Builder);
-    } else if (commandLineArguments.getDb() != null) {
+    } 
+    if (commandLineArguments.getDbName() != null) {
       SQLConnection.init(commandLineArguments.getDbName(), commandLineArguments.getDb(),
           commandLineArguments.getSsh(), commandLineArguments.getDbLocalPort());
       componentToIdMap = detailedManifest.writeToDb(false);
@@ -297,7 +298,8 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
   protected void processResults(Ic3CommandLineArguments commandLineArguments)
       throws FatalAnalysisException {
     System.out.println("\n*****Manifest*****");
-    System.out.println(detailedManifest.toString());
+    //System.out.println(detailedManifest.toString());
+    Timers.v().totalTimer.end();
 
     if (commandLineArguments.getProtobufDestination() != null) {
       ProtobufResultProcessor resultProcessor = new ProtobufResultProcessor();
@@ -309,9 +311,12 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
         logger.error("Could not process analysis results", e);
         throw new FatalAnalysisException();
       }
-    } else {
+    } 
+    if (commandLineArguments.getDbName() != null) {
+      // System.out.println("processResult_db");
       ResultProcessor resultProcessor = new ResultProcessor();
       try {
+        System.out.println(commandLineArguments.getDb());
         resultProcessor.processResult(commandLineArguments.getDb() != null, packageName,
             componentToIdMap, AnalysisParameters.v().getAnalysisClasses().size(), writer);
       } catch (IOException | SQLException e) {
@@ -323,15 +328,16 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
 
   @Override
   protected void finalizeAnalysis(Ic3CommandLineArguments commandLineArguments) {
-	  try {
-		SQLConnection.saveAppCategory(commandLineArguments.getAppCategory(), apkPath);
-		Timers.v().saveTimeToDb();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		//e.printStackTrace();
+    if (commandLineArguments.getDbName() != null){
+      try {
+      SQLConnection.saveAppCategory(commandLineArguments.getAppCategory(), apkPath);
+      Timers.v().saveTimeToDb();
+      } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      //e.printStackTrace();
+      }
+    }
 	}
-	  
-  }
 
   protected void addSceneTransformer(Map<SootMethod, Set<String>> entryPointMap) {
     Ic3ResultBuilder resultBuilder = new Ic3ResultBuilder();

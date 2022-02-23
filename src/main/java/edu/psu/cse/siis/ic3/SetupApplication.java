@@ -360,7 +360,7 @@ public class SetupApplication {
    * scene.
    */
   private void createMainMethod() {
-    System.out.println("createMainMethod");
+    // System.out.println("createMainMethod");
     // Always update the entry point creator to reflect the newest set
     // of callback methods
     SootMethod entryPoint = createEntryPointCreator().createDummyMain();
@@ -515,10 +515,10 @@ public class SetupApplication {
   public AndroidEntryPointCreator createEntryPointCreator() {
     AndroidEntryPointCreator entryPointCreator =
         new AndroidEntryPointCreator(new ArrayList<String>(this.entrypoints));
-    System.out.println("entryproints");
+    /*System.out.println("entryproints");
     Iterator<String> it = this.entrypoints.iterator();
     while(it.hasNext())
-      System.out.println(it.next());
+      System.out.println(it.next());*/
     Map<String, List<String>> callbackMethodSigs = new HashMap<String, List<String>>();
     for (String className : this.callbackMethods.keySet()) {
       List<String> methodSigs = new ArrayList<String>();

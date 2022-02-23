@@ -65,10 +65,10 @@ public class ResultProcessor {
       Map<String, Integer> componentToIdMap, int analysisClassesCount, Writer writer)
       throws IOException, SQLException {
     for (Result result : Results.getResults()) {
-      ((Ic3Result) result).dump();
+      //((Ic3Result) result).dump();
       analyzeResult(result);
       if (writeToDb) {
-
+        // System.out.println("writeToDb");
         writeResultToDb(result, componentToIdMap);
       }
     }
@@ -77,7 +77,7 @@ public class ResultProcessor {
       SQLConnection.closeConnection();
     }
 
-    Timers.v().totalTimer.end();
+    //Timers.v().totalTimer.end();
 
     String statistics = appName + " " + analysisClassesCount + " "
         + PropagationTimers.v().reachableMethods + " " + PropagationTimers.v().reachableStatements

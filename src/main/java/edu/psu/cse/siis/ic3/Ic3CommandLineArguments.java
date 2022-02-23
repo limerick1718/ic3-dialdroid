@@ -31,9 +31,10 @@ public class Ic3CommandLineArguments extends CommandLineArguments {
   private static final String DEFAULT_DATABASE_PROPERTIES_PATH = "cc.properties";
   private static final int DEFAULT_LOCAL_PORT = 3306;
   private static final String DEFAULT_COMPILED_MODEL_PATH = "/res/icc.cmodel";
-  private static final String DEFAULT_DB_NAME = "dialdroid";
+  private static final String DEFAULT_DB_NAME = "";
   private static final String DEFAULT_DB_HOST_NAME = "localhost";
 
+  private String apksDir;
   private String manifest;
   private String db;
   private String ssh;
@@ -47,8 +48,12 @@ public class Ic3CommandLineArguments extends CommandLineArguments {
   private String appCategory="Default";
   private String dbHostName;
 
+  public String getApksDir(){
+    return apksDir;
+  }
+
   public String getDbName() {
-    return dbName != null ? dbName : DEFAULT_DB_NAME;
+    return dbName;
   }
 
   /**
@@ -114,6 +119,10 @@ public class Ic3CommandLineArguments extends CommandLineArguments {
     return protobufDestination;
   }
 
+  public void setProtobufDestination(String dir){
+    protobufDestination = dir;
+  }
+
   /**
    * Determines if the output should be binary, in the case of a protobuf output.
    *
@@ -148,13 +157,19 @@ public class Ic3CommandLineArguments extends CommandLineArguments {
    * using the arguments contained in this class.
    */
   public void processCommandLineArguments() {
-    manifest = getOptionValue("in");
+    if (hasOption("in"))
+      manifest = getOptionValue("in");
+    if (hasOption("dir")) {
+        apksDir = getOptionValue("dir");
+    }
 
     if (getCompiledModel() == null && getModel() == null) {
       setCompiledModel(DEFAULT_COMPILED_MODEL_PATH);
     }
 
     iccStudy = getOptionValue("iccstudy");
+
+
 
     if (hasOption("db")) {
       db = getOptionValue("db", DEFAULT_DATABASE_PROPERTIES_PATH);

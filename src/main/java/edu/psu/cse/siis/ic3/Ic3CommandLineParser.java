@@ -36,7 +36,7 @@ public class Ic3CommandLineParser extends CommandLineParser<Ic3CommandLineArgume
   protected void parseAnalysisSpecificArguments(Options options) {
      options.addOption(Option.builder("in")
      .desc("Path to the .apk of the application.").hasArg()
-     .argName(".apk path").required().build());
+     .argName(".apk path").build());
      
      options.addOption(Option.builder("cp")
     	     .desc("Path to android platforms").hasArg()
@@ -60,6 +60,9 @@ public class Ic3CommandLineParser extends CommandLineParser<Ic3CommandLineArgume
 
     options.addOption(Option.builder("dbname").desc("DB name.").hasArg()
             .type(Number.class).argName("DB name").build());
+
+    options.addOption(Option.builder("dir").desc("directory of the apks.").hasArg()
+            .type(Number.class).argName("dir path").build());
         
     options.addOption("computecomponents", false,
         "Compute which components each exit point belongs to.");
@@ -70,11 +73,12 @@ public class Ic3CommandLineParser extends CommandLineParser<Ic3CommandLineArgume
   protected void printHelp(Options options) {
     HelpFormatter formatter = new HelpFormatter();
     System.out.println(COPYRIGHT);
-    formatter.printHelp("ic3 -input <Android directory> -cp <classpath> "
+    formatter.printHelp("ic3 -in <Android apk> -cp <classpath> "
         + "[-computecomponents] "
         + "[-db <path to DB properties file>] [-ssh <path to SSH properties file>] "
         + "[-localport <DB local port>] [-modeledtypesonly] [-output <output directory>] "
          + "[-dbhost DB host name/IP] [-dbname DB name]"
-        + "[-threadcount <thread count>] [-category App Category]", options);
+        + "[-threadcount <thread count>] [-category App Category]"
+        + "[-dir <path for apks]", options);
   }
 }
