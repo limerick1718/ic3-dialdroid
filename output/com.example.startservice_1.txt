@@ -1,0 +1,122 @@
+name: "com.example.startservice"
+version: 1
+components {
+  name: "com.example.startservice.MainActivity"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.MAIN"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "android.intent.category.LAUNCHER"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.example.startservice.MainActivity: android.content.ComponentName startService(android.content.Intent)>($r2)"
+      class_name: "com.example.startservice.MainActivity"
+      method: "<com.example.startservice.MainActivity: void onCreate(android.os.Bundle)>"
+      id: 9
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: EXTRA
+        value: "source"
+      }
+      attributes {
+        kind: CLASS
+        value: "com/example/startservice/MyService"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.example.startservice"
+      }
+    }
+  }
+}
+components {
+  name: "com.example.startservice.MyService"
+  kind: SERVICE
+  exported: true
+}
+components {
+  name: "androidx.core.content.pm.ShortcutManagerCompat$1"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.os.action.POWER_SAVE_MODE_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.TIMEZONE_CHANGED"
+      value: "android.intent.action.TIME_SET"
+      value: "android.intent.action.TIME_TICK"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r5.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)"
+    class_name: "androidx.appcompat.app.AppCompatDelegateImpl$AutoNightModeManager"
+    method: "<androidx.appcompat.app.AppCompatDelegateImpl$AutoNightModeManager: void setup()>"
+    id: 15
+  }
+}
+components {
+  name: "androidx.appcompat.app.AppCompatDelegateImpl$AutoNightModeManager$1"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.os.action.POWER_SAVE_MODE_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.TIMEZONE_CHANGED"
+      value: "android.intent.action.TIME_SET"
+      value: "android.intent.action.TIME_TICK"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r5.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)"
+    class_name: "androidx.appcompat.app.AppCompatDelegateImpl$AutoNightModeManager"
+    method: "<androidx.appcompat.app.AppCompatDelegateImpl$AutoNightModeManager: void setup()>"
+    id: 15
+  }
+}
+components {
+  name: "androidx.legacy.content.WakefulBroadcastReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.os.action.POWER_SAVE_MODE_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.TIMEZONE_CHANGED"
+      value: "android.intent.action.TIME_SET"
+      value: "android.intent.action.TIME_TICK"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r5.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)"
+    class_name: "androidx.appcompat.app.AppCompatDelegateImpl$AutoNightModeManager"
+    method: "<androidx.appcompat.app.AppCompatDelegateImpl$AutoNightModeManager: void setup()>"
+    id: 15
+  }
+}
+analysis_start: 1645598829
+analysis_end: 1645598869
