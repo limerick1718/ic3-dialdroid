@@ -298,7 +298,7 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
   protected void processResults(Ic3CommandLineArguments commandLineArguments)
       throws FatalAnalysisException {
     System.out.println("\n*****Manifest*****");
-    //System.out.println(detailedManifest.toString());
+    System.out.println(detailedManifest.toString());
     Timers.v().totalTimer.end();
 
     if (commandLineArguments.getProtobufDestination() != null) {
